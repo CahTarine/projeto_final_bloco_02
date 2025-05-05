@@ -1,9 +1,16 @@
 package com.projeto_final_bloco_02.projeto_final_bloco_02.model;
 
+import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
@@ -24,6 +31,9 @@ public class Categorias {
 	@Size(min = 10, max = 1000)
 	private String descricao;
 	
+	@OneToMany(mappedBy = "categoria", cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
+	@JsonIgnoreProperties("categoria")
+	private List<Produtos> produtos;
 	
 
 	public Long getId() {
